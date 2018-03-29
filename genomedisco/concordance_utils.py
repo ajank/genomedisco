@@ -413,7 +413,7 @@ def GenomeDISCO_wrapper(outdir,parameters,concise_analysis,samplename1,samplenam
                 timing_file=outdir+'/timing/GenomeDISCO/GenomeDISCO.'+chromo+'.'+samplename1+'.'+samplename2+'.timing.txt'
                 timing_text1='{ time '
                 timing_text2='; } 2> '+timing_file
-            cmd=timing_text1+sys.executable+" "+repo_dir+"/genomedisco/compute_reproducibility.py"+" --m1 "+f1+" --m2 "+f2+" --m1name "+samplename1+" --m2name "+samplename2+" --node_file "+nodefile+" --outdir "+outpath+" --outpref "+chromo+" --m_subsample "+subsampling+" --approximation 10000000 --norm "+parameters['GenomeDISCO']['norm']+" --method RandomWalks "+" --tmin "+parameters['GenomeDISCO']['tmin']+" --tmax "+parameters['GenomeDISCO']['tmax']+concise_analysis_text+scoresByStep_text+removeDiag_text+transition_text+' '+timing_text2
+            cmd=timing_text1+sys.executable+" "+repo_dir+"/genomedisco/compute_reproducibility.py"+" --m1 "+f1+" --m2 "+f2+" --m1name "+samplename1+" --m2name "+samplename2+" --node_file "+nodefile+" --outdir "+outpath+" --outpref "+chromo+" --subsampling_depth "+subsampling+" --approximation 10000000 --norm "+parameters['GenomeDISCO']['norm']+" --method RandomWalks "+" --tmin "+parameters['GenomeDISCO']['tmin']+" --tmax "+parameters['GenomeDISCO']['tmax']+concise_analysis_text+scoresByStep_text+removeDiag_text+transition_text+' '+timing_text2
             cmdlist.append(cmd)
             cmdlist.append('cat '+outpath+'/'+chromo+'.'+samplename1+'.vs.'+samplename2+".scores.txt | awk -v chromosome="+chromo+" '{print "+'$1"\\t"$2"\\t"chromosome"\\t"$3}\' >> '+all_scores)
     return cmdlist
